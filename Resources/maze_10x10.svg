@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="162"
+   height="162"
+   viewBox="0 0 162 162"
+   sodipodi:docname="maze_10x10.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="4.7962963"
+     inkscape:cx="81"
+     inkscape:cy="63.069498"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1">
+    <image
+       width="162"
+       height="162"
+       preserveAspectRatio="none"
+       xlink:href="../../PNG%20Before/GamePlay%20scripting/maze_10b10.png"
+       id="image1"
+       style="display:none" />
+    <path
+       style="fill:#000000"
+       d="M 144,34 V 18 h -8 -8 V 10 2 H 105 82 v 8 8 H 81 80 V 9 0 h 41 41 v 25 25 h -1 -1 V 26 2 h -15 -15 v 7 7 h 8 8 v 17 17 h -1 -1 z"
+       id="path4" />
+    <path
+       style="fill:#000000"
+       d="M 0,41 V 0 h 33 33 v 1 1 h -8 -8 v 7 7 h 8 8 v 8 8 h 15 15 v -8 -8 h 1 1 v 9 9 h -8 -8 v 7 7 h 15 15 V 32 16 h 1 1 v 17 17 h -8 -8 v 8 8 H 97 96 V 58 50 H 88 80 V 42 34 H 72 64 V 26 18 H 56 48 V 10 2 H 25 2 v 31 31 h 8 8 v 1 1 H 10 2 v 8 8 H 1 0 Z"
+       id="path3" />
+    <path
+       style="fill:#000000"
+       d="m 96,153 v -9 h 1 1 v 8 8 h 15 15 v -8 -8 h 9 9 v 1 1 h -8 -8 v 7 7 h 15 15 v -23 -23 h -8 -8 V 98 82 H 112 80 v -8 -8 h -8 -8 v -8 -8 h -8 -8 v -8 -8 h -8 -8 v -1 -1 h 9 9 v 8 8 h 8 8 v 8 8 h 8 8 v 8 8 h 15 15 v -8 -8 h 1 1 v 8 8 h 16 16 v 16 16 h 7 7 V 89 66 H 144 128 V 49 32 h 1 1 v 16 16 h 16 16 v 49 49 H 129 96 Z"
+       id="path2" />
+    <path
+       style="fill:#000000"
+       d="M 0,129 V 96 h 9 9 v 1 1 H 10 2 v 15 15 h 24 24 v 9 9 h -1 -1 v -8 -8 H 33 18 v 8 8 h -1 -1 v -8 -8 H 9 2 v 15 15 h 15 15 v -8 -8 h 1 1 v 8 8 h 15 15 v -8 -8 h 1 1 v 8 8 h 7 7 v -15 -15 h -8 -8 v -1 -1 h 32 32 V 113 98 H 88 48 v -1 -1 h 8 8 V 89 82 H 49 34 v 15 15 h 40 40 v 1 1 H 65 16 v -1 -1 h 8 8 V 97 82 H 24 16 V 81 80 H 32 48 V 73 66 H 40 32 V 58 50 H 24 16 V 33 16 h 9 9 v 1 1 h -8 -8 v 15 15 h 8 8 v 8 8 h 8 8 v 8 8 h 8 8 v 8 8 h 32 32 v 16 16 h 8 8 v 1 1 h -16 -16 v 8 8 h -1 -1 v -8 -8 H 97 82 v 16 16 H 41 0 Z"
+       id="path1" />
+  </g>
+</svg>

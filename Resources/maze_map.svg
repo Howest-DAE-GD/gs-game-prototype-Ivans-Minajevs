@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="322"
+   height="322"
+   viewBox="0 0 322 322"
+   sodipodi:docname="maze_map.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.7062794"
+     inkscape:cx="262.26654"
+     inkscape:cy="162.04849"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1">
+    <image
+       width="322"
+       height="322"
+       preserveAspectRatio="none"
+       xlink:href="../../PNG%20Before/GamePlay%20scripting/maze_map.png"
+       id="image1"
+       style="display:none" />
+    <path
+       style="display:inline;fill:#000000"
+       d="m 176,290 v -32 h -8 -8 v -8 -8 h -15 -15 v 32 32 h -9 -9 v -1 -1 h 8 8 V 289 274 H 97 66 v 8 8 h -1 -1 v -8 -8 H 49 34 v 8 8 h -1 -1 v -24 -24 h -8 -8 v -1 -1 h 8 8 v -8 -8 h 24 24 v -8 -8 h 8 8 v -8 -8 h 33 33 v 1 1 H 130 98 v 15 15 h 16 16 v 1 1 H 114 98 v 8 8 H 74 50 v 7 7 h 8 8 v 1 1 h -9 -9 v -9 -9 h 24 24 v -15 -15 h -7 -7 v 8 8 H 58 34 v 23 23 h 23 23 v -8 -8 h 1 1 v 8 8 h 23 23 v -15 -15 h -7 -7 v 8 8 h -9 -9 v -1 -1 h 8 8 v -8 -8 h 16 16 v -8 -8 h 1 1 v 8 8 h 7 7 v -15 -15 h -24 -24 v -1 -1 h 32 32 v -15 -15 h -32 -32 v -1 -1 h 16 16 v -8 -8 h 1 1 v 8 8 h 23 23 v -15 -15 h -8 -8 v -8 -8 h -16 -16 v -8 -8 h -8 -8 v -1 -1 h 8 8 v -8 -8 h 1 1 v 16 16 h 15 15 v -8 -8 h 8 8 v -8 -8 h 17 17 v 1 1 h -8 -8 v 8 8 h -1 -1 v -8 -8 h -7 -7 v 15 15 h 15 15 v -8 -8 h 8 8 V 97 82 h -31 -31 v 8 8 h -8 -8 v 8 8 h -1 -1 v -9 -9 h 8 8 v -8 -8 h 16 16 V 56 32 h 1 1 v 24 24 h 15 15 v -8 -8 h 8 8 V 49 34 h -8 -8 v -9 -9 h 1 1 v 8 8 h 7 7 v -8 -8 h 1 1 v 24 24 h 16 16 v 1 1 h -16 -16 v 8 8 h -1 -1 v -8 -8 h -7 -7 v 15 15 h 15 15 v -8 -8 h 17 17 v 25 25 h -1 -1 V 106 82 h -15 -15 v 8 8 h -16 -16 v 15 15 h 8 8 v 1 1 h -8 -8 v 7 7 h 23 23 v -15 -15 h -7 -7 v 8 8 h -1 -1 v -8 -8 h -8 -8 v -1 -1 h 16 16 v -8 -8 h 1 1 v 25 25 h -8 -8 v 7 7 h 16 16 v 1 1 h -17 -17 v -8 -8 h -15 -15 v 8 8 h -16 -16 v 8 8 h -1 -1 v -17 -17 h 1 1 v 8 8 h 15 15 v -23 -23 h -7 -7 v 16 16 h -1 -1 v -8 -8 h -16 -16 v -8 -8 h -7 -7 v 15 15 h 8 8 v 24 24 h 8 8 v 1 1 h -8 -8 v 15 15 h 8 8 v 1 1 h -8 -8 v 8 8 h -1 -1 v -32 -32 h -7 -7 v 16 16 h -8 -8 v 23 23 h 7 7 v -16 -16 h 1 1 v 16 16 h 8 8 v 1 1 h -8 -8 v 15 15 h 7 7 v -8 -8 h 8 8 v -16 -16 h 1 1 v 17 17 h -8 -8 v 8 8 h -8 -8 v 15 15 h 23 23 v -8 -8 h 1 1 v 8 8 h 23 23 v -16 -16 h 8 8 v -8 -8 h 8 8 v -7 -7 h -8 -8 v -8 -8 h -8 -8 v -16 -16 h -7 -7 v 24 24 h -8 -8 v 8 8 h -1 -1 v -9 -9 h 8 8 v -15 -15 h -15 -15 v 7 7 h 8 8 v 1 1 h -8 -8 v 23 23 h 15 15 v -8 -8 h 8 8 v -8 -8 h 1 1 v 9 9 h -8 -8 v 16 16 h -9 -9 v -1 -1 h 8 8 v -7 -7 h -23 -23 v 8 8 h -9 -9 v -1 -1 h 8 8 v -8 -8 h 8 8 v -39 -39 h -8 -8 v -1 -1 h 8 8 v -16 -16 h 9 9 v 1 1 h -8 -8 v 23 23 h 15 15 v -8 -8 h 9 9 v 16 16 h 8 8 v 8 8 h 8 8 v 9 9 h -8 -8 v 8 8 h -8 -8 v 15 15 h 23 23 v -15 -15 h -7 -7 v 8 8 h -9 -9 v -1 -1 h 8 8 v -8 -8 h 8 8 v -23 -23 h -8 -8 v -1 -1 h 8 8 v -7 -7 h -16 -16 v -17 -17 h 9 9 v 9 9 h -1 -1 v -8 -8 h -7 -7 v 15 15 h 15 15 v -23 -23 h -31 -31 v 7 7 h 8 8 v 1 1 h -16 -16 v 8 8 h -1 -1 v -9 -9 h 8 8 v -16 -16 h 1 1 v 8 8 h 31 31 v -15 -15 h -8 -8 v -1 -1 h 8 8 V 89 34 h -16 -16 v -9 -9 h 9 9 v 1 1 h -8 -8 v 7 7 h 15 15 V 17 2 h -23 -23 v 23 23 h 16 16 v 9 9 h -1 -1 V 58 50 H 288 272 V 26 2 h -23 -23 v 23 23 h 8 8 v 1 1 h -8 -8 v 8 8 h -1 -1 V 42 18 h -15 -15 v 24 24 h -1 -1 V 42 18 h -23 -23 v 7 7 h 8 8 v 1 1 h -8 -8 v 16 16 h -1 -1 V 41 16 h 40 40 V 9 2 H 192 160 V 1 0 h 81 81 v 161 161 h -73 -73 z"
+       id="path2" />
+    <path
+       style="display:inline;fill:#000000"
+       d="M 0,161 V 0 h 73 73 v 1 1 h -8 -8 v 39 39 h 15 15 V 64 48 h 8 8 v -8 -8 h 1 1 v 9 9 h -8 -8 v 7 7 h 8 8 v 1 1 h -8 -8 v 8 8 h -16 -16 v 8 8 h -9 -9 v -1 -1 h 8 8 v -7 -7 h -8 -8 v -1 -1 h 8 8 V 65 50 h -8 -8 V 34 18 H 97 82 V 50 82 H 65 48 V 81 80 H 64 80 V 65 50 H 72 64 V 34 18 h -8 -8 v -1 -1 h 9 9 v 16 16 h 7 7 V 32 16 h 17 17 v 16 16 h 7 7 V 25 2 H 65 2 v 15 15 h 7 7 v -8 -8 h 1 1 v 9 9 H 10 2 v 23 23 h 8 8 v 25 25 H 17 16 V 106 82 H 9 2 v 31 31 h 8 8 v 1 1 H 10 2 v 39 39 h 7 7 v -8 -8 h 8 8 v -7 -7 h -8 -8 v -17 -17 h 8 8 V 113 66 h -8 -8 v -9 -9 h 8 8 V 32 16 h 1 1 v 17 17 h -8 -8 v 7 7 H 33 48 V 48 32 h 1 1 v 16 16 h 8 8 v 1 1 H 50 34 v 15 15 h 8 8 v 9 9 h -1 -1 v -8 -8 h -7 -7 v 15 15 H 49 64 V 112 96 h 1 1 v 16 16 h 7 7 v -8 -8 h 1 1 v 9 9 H 58 34 v 7 7 h 8 8 v 1 1 h -8 -8 v 8 8 h -8 -8 v 15 15 h 8 8 v 8 8 h 15 15 v -16 -16 h 1 1 v 8 8 h 7 7 v -16 -16 h 1 1 v 8 8 h 7 7 v -8 -8 h 16 16 v -15 -15 h -8 -8 v -8 -8 h -7 -7 v 15 15 h 8 8 v 1 1 H 90 66 v 8 8 h -8 -8 v 16 16 h -1 -1 v -8 -8 h -8 -8 v -1 -1 h 8 8 v -8 -8 h 8 8 v -8 -8 H 80 96 V 121 98 h -8 -8 v -1 -1 h 8 8 V 64 32 h 1 1 v 16 16 h 8 8 v 1 1 h -8 -8 v 23 23 h 8 8 v 8 8 h 8 8 v 8 8 h 16 16 v 8 8 h 8 8 v 1 1 h -9 -9 v -8 -8 h -15 -15 v 8 8 H 114 98 v 8 8 h -8 -8 v 8 8 h -8 -8 v 8 8 H 42 18 v 8 8 H 10 2 v 47 47 h 47 47 v -15 -15 h -7 -7 v 8 8 H 49 16 v -25 -25 h 1 1 v 24 24 h 15 15 v -8 -8 h 1 1 v 8 8 h 15 15 v -8 -8 h 17 17 v 1 1 h -8 -8 v 15 15 h 23 23 v -16 -16 h 1 1 v 16 16 h 7 7 v -23 -23 h -8 -8 v -9 -9 h 1 1 v 8 8 h 8 8 v 25 25 H 81 0 Z"
+       id="path1" />
+  </g>
+</svg>

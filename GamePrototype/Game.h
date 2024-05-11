@@ -1,5 +1,8 @@
 #pragma once
 #include "BaseGame.h"
+#include <vector>
+#include "Thief.h"
+class Camera;
 class Game : public BaseGame
 {
 public:
@@ -21,10 +24,28 @@ public:
 	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e ) override;
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
-private:
+	struct MazePoint
+	{
+		int x;
+		int y;
+	};
 
+	float m_SCALE{ 5.f };
+
+	const float m_WIDTH{ 162.f };
+	const float m_HEIGHT{ 162.f };
+	const int m_CELL_SIZE = 20;
+	const int m_ROWS{ m_HEIGHT / m_CELL_SIZE };
+	const int m_COLS{ m_WIDTH / m_CELL_SIZE };
+private:
+	std::vector<std::vector<bool>> m_Maze;
+	Thief* m_ThiefPtr;
+	Camera* m_Camera;
+	std::vector<std::vector<Point2f>> m_MazeMapVertices;
 	// FUNCTIONS
 	void Initialize();
+	void GenerateMaze();
+	void GenerateMazeRecursive(int x, int y);
 	void Cleanup( );
 	void ClearBackground( ) const;
 };
