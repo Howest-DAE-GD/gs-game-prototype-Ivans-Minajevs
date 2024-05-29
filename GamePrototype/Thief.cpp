@@ -60,8 +60,13 @@ void Thief::Update(float elapsedSec, const Uint8* pStates, const std::vector<std
 
 }
 
-Point2f Thief::GetPosition()
+Point2f Thief::GetPosition() const
 {
 	return m_Position;
 }
+Circlef Thief::GetCircle( ) const
+{
+	return Circlef(m_Position.x, m_Position.y, m_RADIUS);
+}
+
 

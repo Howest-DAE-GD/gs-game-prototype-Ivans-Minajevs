@@ -2,7 +2,9 @@
 #include "BaseGame.h"
 #include <vector>
 #include "Thief.h"
+class TextManager;
 class Camera;
+class CollectiblesManager;
 class Game : public BaseGame
 {
 public:
@@ -34,18 +36,21 @@ public:
 
 	const float m_WIDTH{ 162.f };
 	const float m_HEIGHT{ 162.f };
-	const int m_CELL_SIZE = 20;
-	const int m_ROWS{ m_HEIGHT / m_CELL_SIZE };
-	const int m_COLS{ m_WIDTH / m_CELL_SIZE };
+	//const int m_CELL_SIZE = 20;
+	//const int m_ROWS{ m_HEIGHT / m_CELL_SIZE };
+	//const int m_COLS{ m_WIDTH / m_CELL_SIZE };
 private:
 	std::vector<std::vector<bool>> m_Maze;
 	Thief* m_ThiefPtr;
 	Camera* m_Camera;
+	CollectiblesManager* m_CollectibleManagerPtr;
 	std::vector<std::vector<Point2f>> m_MazeMapVertices;
+	std::string m_Alphabet{"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:"};
+	TextManager* m_TextManagerPtr;
 	// FUNCTIONS
 	void Initialize();
-	void GenerateMaze();
-	void GenerateMazeRecursive(int x, int y);
+	//void GenerateMaze();
+	//void GenerateMazeRecursive(int x, int y);
 	void Cleanup( );
 	void ClearBackground( ) const;
 };

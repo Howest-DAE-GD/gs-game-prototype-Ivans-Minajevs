@@ -4,10 +4,13 @@
 #include <utils.h>
 #include <SVGParser.h>
 #include "Camera.h"
+#include "Collectible.h"
+#include "CollectiblesManager.h"
 #include <algorithm>
+#include "TextManager.h"
 using namespace std;
 Game::Game( const Window& window ) 
-	:BaseGame{ window }
+	:BaseGame{ window }, m_CollectibleManagerPtr(nullptr)
 {
 	Initialize();
 }
@@ -19,13 +22,7 @@ Game::~Game( )
 
 void Game::Initialize( )
 {
-
-	m_Maze.resize(m_ROWS);
-	for (int index{ 0 }; index < m_ROWS; ++index)
-	{
-		m_Maze[index].resize(m_COLS, false);
-	}
-	GenerateMaze();
+	m_CollectibleManagerPtr = new CollectiblesManager();
 
 	m_Camera = new Camera(GetViewPort().width, GetViewPort().height);
 
@@ -40,9 +37,16 @@ void Game::Initialize( )
 			std::cout << point.x << " " << point.y;
 		}
 	}
+	m_CollectibleManagerPtr->Add(new Collectible(Point2f(700.f, 40.f)));
+	m_CollectibleManagerPtr->Add(new Collectible(Point2f(700.f, 750.f)));
+	m_CollectibleManagerPtr->Add(new Collectible(Point2f(250.f, 350.f)));
+	m_CollectibleManagerPtr->Add(new Collectible(Point2f(400.f, 355.f)));
+	m_CollectibleManagerPtr->Add(new Collectible(Point2f(40.f, 80.f)));
+
+	m_TextManagerPtr = new TextManager(m_Alphabet, "game_font.ttf");
 }
 
-void Game::GenerateMaze()
+/*void Game::GenerateMaze()
 {
 	MazePoint startCoord{ 0, 0 }; // Starting point at top-left corner
 	MazePoint endCoord{ m_ROWS - 1, m_COLS - 1 }; // Ending point at bottom-right corner
@@ -97,9 +101,9 @@ void Game::GenerateMaze()
 	//		break;
 	//	}
 	//}
-}
+}*/
 
-void Game::GenerateMazeRecursive(int x, int y)
+/*void Game::GenerateMazeRecursive(int x, int y)
 {
 	vector<MazePoint> directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 	random_shuffle(directions.begin(), directions.end());
@@ -114,7 +118,7 @@ void Game::GenerateMazeRecursive(int x, int y)
 			GenerateMazeRecursive(newX, newY);
 		}
 	}
-}
+}*/
 
 void Game::Cleanup( )
 {
@@ -123,12 +127,34 @@ void Game::Cleanup( )
 
 	delete m_Camera;
 	m_Camera = nullptr;
+
+	m_CollectibleManagerPtr->DeleteCollectibles();
+	
+	delete m_CollectibleManagerPtr;
+	m_CollectibleManagerPtr = nullptr;
+
+	delete m_TextManagerPtr;
 }
 
 void Game::Update( float elapsedSec )
 {
 	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	m_ThiefPtr->Update(elapsedSec, pStates, m_MazeMapVertices);
+
+	std::vector<Collectible*>* smth = m_CollectibleManagerPtr->GetArray();
+	for (Collectible* collectiblePtr : *smth)
+	{
+		if (collectiblePtr != nullptr)
+		{
+			if (utils::IsOverlapping(collectiblePtr->GetRect(), m_ThiefPtr->GetCircle()))
+			{
+			
+				collectiblePtr->SetIsCollected();
+			}
+		}
+	}
+
+	m_CollectibleManagerPtr->Update();
 }
 
 void Game::Draw( ) const
@@ -175,9 +201,17 @@ void Game::Draw( ) const
 		}
 	}
 	glPopMatrix();
+	m_CollectibleManagerPtr->Draw();
 	m_ThiefPtr->Draw();
 
+	
+	
 	m_Camera->Reset();
+
+	utils::SetColor(Color4f(1.f, 1.f, 1.f, 1.f));
+	utils::FillRect(GetViewPort().width - 450.f, GetViewPort().height - 100.f, 450.f, 100.f);
+	m_TextManagerPtr->Draw(Point2f(GetViewPort().width - 400.f, GetViewPort().height - 60.f), "COLLECTED:" + std::to_string(CollectiblesManager::GetCollectedCollectiblesCount()) +
+		"/5");
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
