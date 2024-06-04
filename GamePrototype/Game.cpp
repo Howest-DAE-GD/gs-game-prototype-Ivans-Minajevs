@@ -38,7 +38,6 @@ void Game::Initialize( )
 			point.x = int(point.x) * m_SCALE;
 			
 			point.y = int(point.y) * m_SCALE;
-			std::cout << point.x << " " << point.y;
 		}
 	}
 	
@@ -55,22 +54,6 @@ void Game::Initialize( )
 	
 	m_TextManagerPtr = new TextManager(m_Alphabet, "game_font.ttf");
 }
-/*void Game::GenerateMazeRecursive(int x, int y)
-{
-	vector<MazePoint> directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-	random_shuffle(directions.begin(), directions.end());
-
-	for (auto direction : directions) {
-		int newX = x + direction.x * 2;
-		int newY = y + direction.y * 2;
-
-		if (newX >= 0 && newX < m_ROWS && newY >= 0 && newY < m_COLS && !m_Maze[newX][newY]) {
-			m_Maze[newX][newY] = true;
-			m_Maze[x + direction.x][y + direction.y] = true;
-			GenerateMazeRecursive(newX, newY);
-		}
-	}
-}*/
 
 void Game::Cleanup( )
 {
@@ -136,10 +119,10 @@ void Game::Draw( ) const
 	
 	m_Camera->Reset();
 	
-	utils::SetColor(Color4f(1.f, 1.f, 1.f, 1.f));
-	utils::FillRect(GetViewPort().width - 450.f, GetViewPort().height - 100.f, 450.f, 100.f);
-	m_TextManagerPtr->Draw(Point2f(GetViewPort().width - 400.f, GetViewPort().height - 60.f), "COLLECTED:" + std::to_string(CollectiblesManager::GetCollectedCollectiblesCount()) +
-		"/5");
+	utils::SetColor(Color4f(0.85f, 0.85f, 0.85f, 1.0f));
+	utils::FillRect(GetViewPort().width - 335.f, GetViewPort().height - 80.f, 335.f, 100.f);
+	m_TextManagerPtr->Draw(Point2f(GetViewPort().width - 300.f, GetViewPort().height - 50.f), "COLLECTED:" + std::to_string(CollectiblesManager::GetCollectedCollectiblesCount()) +
+		"-5");
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )

@@ -47,7 +47,7 @@ private:
 	CollectiblesManager* m_CollectibleManagerPtr;
 	EnemiesManager* m_EnemiesManagerPtr;
 	std::vector<std::vector<Point2f>> m_MazeMapVertices;
-	std::string m_Alphabet{"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:"};
+	std::string m_Alphabet{"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-:"};
 	TextManager* m_TextManagerPtr;
 	// FUNCTIONS
 	void Initialize();

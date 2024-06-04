@@ -28,8 +28,6 @@ void Enemy::Draw( ) const
 	}
 
 	utils::SetColor(Color4f(0.f, 0.f, 1.f, 1.f));
-	utils::DrawLine(Point2f(m_Position.x, m_Position.y),
-										Point2f(m_Position.x + m_Direction.x * 50.f, m_Position.y + m_Direction.y *  50.f), 3);
 }
 void Enemy::Update( float elapsedSec, const std::vector<std::vector<Point2f>>& vertices )
 {

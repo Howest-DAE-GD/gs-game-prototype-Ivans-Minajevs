@@ -6,7 +6,7 @@
 TextManager::TextManager(const std::string& alphabet, const std::string& filePath)
 	: m_Alphabet(alphabet)
 {
-	m_TextTexturePtr = new Texture(alphabet, filePath, 30, Color4f(0.f, 0.f, 0.f, 1.f));
+	m_TextTexturePtr = new Texture(alphabet, filePath, 20, Color4f(0.f, 0.f, 0.f, 1.f));
 }
 
 TextManager::~TextManager( )
