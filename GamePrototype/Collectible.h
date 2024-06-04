@@ -6,7 +6,7 @@ public:
 	
 
 	void Draw() const;
-	void SetIsCollected();
+	void SetIsCollected(bool isCollected);
 
 	bool GetIsCollected() const;
 	Rectf GetRect() const;

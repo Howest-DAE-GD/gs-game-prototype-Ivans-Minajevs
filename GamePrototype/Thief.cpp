@@ -2,8 +2,11 @@
 #include "Thief.h"
 #include <utils.h>
 
+#include "CollectiblesManager.h"
+
 Thief::Thief(Point2f pos) : m_Position(pos)
 {
+	m_InitialPosition = m_Position;
 	m_Velocity = Point2f(0.f, 0.f);
 	m_Circle = Circlef(m_Position, m_RADIUS);
 	m_IsSpotted = false;
@@ -26,29 +29,37 @@ void Thief::Update(float elapsedSec, const Uint8* pStates, const std::vector<std
 
 	utils::HitInfo hitInfo;
 	
-	for (const std::vector<Point2f>& segment : vertices)
+	for (int inx { 0 }; inx < int(vertices.size()); ++inx)
 	{
-		if (utils::Raycast(segment, Point2f(m_Position.x - m_RADIUS, m_Position.y), Point2f(m_Position.x + m_RADIUS, m_Position.y), hitInfo))
+		
+		if (utils::Raycast(vertices[inx], Point2f(m_Position.x - m_RADIUS, m_Position.y), Point2f(m_Position.x + m_RADIUS, m_Position.y), hitInfo))
 		{
+			if (CollectiblesManager::GetCollectedCollectiblesCount() != 5 || inx < 4)
+			{
+				if (m_Position.x > hitInfo.intersectPoint.x)
+				{
+					m_Position.x = hitInfo.intersectPoint.x + m_RADIUS;
+				} 
+				else
+				{
+					m_Position.x = hitInfo.intersectPoint.x - m_RADIUS;
+				}
+			}
 			//m_Velocity.x = 0;
-			if (m_Position.x > hitInfo.intersectPoint.x)
-			{
-				m_Position.x = hitInfo.intersectPoint.x + m_RADIUS;
-			} 
-			else
-			{
-				m_Position.x = hitInfo.intersectPoint.x - m_RADIUS;
-			}
+			
 		}
-		if (utils::Raycast(segment, Point2f(m_Position.x, m_Position.y - m_RADIUS), Point2f(m_Position.x, m_Position.y + m_RADIUS), hitInfo))
+		if (utils::Raycast(vertices[inx], Point2f(m_Position.x, m_Position.y - m_RADIUS), Point2f(m_Position.x, m_Position.y + m_RADIUS), hitInfo))
 		{
-			if (m_Position.y > hitInfo.intersectPoint.y)
+			if (CollectiblesManager::GetCollectedCollectiblesCount() != 5 || inx < 4)
 			{
-				m_Position.y = hitInfo.intersectPoint.y + m_RADIUS;
-			}
-			else
-			{
-				m_Position.y = hitInfo.intersectPoint.y - m_RADIUS;
+				if (m_Position.y > hitInfo.intersectPoint.y)
+				{
+					m_Position.y = hitInfo.intersectPoint.y + m_RADIUS;
+				}
+				else
+				{
+					m_Position.y = hitInfo.intersectPoint.y - m_RADIUS;
+				}
 			}
 		}
 	}
@@ -67,6 +78,10 @@ Point2f Thief::GetPosition() const
 Circlef Thief::GetCircle( ) const
 {
 	return Circlef(m_Position.x, m_Position.y, m_RADIUS);
+}
+void Thief::ResetPosition( )
+{
+	m_Position = m_InitialPosition;
 }
 
 

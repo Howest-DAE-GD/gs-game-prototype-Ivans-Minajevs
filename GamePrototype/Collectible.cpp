@@ -15,9 +15,9 @@ void Collectible::Draw() const
 	utils::FillRect(m_RectTexture);
 }
 
-void Collectible::SetIsCollected()
+void Collectible::SetIsCollected(bool isCollected)
 {
-	m_IsCollected = true;
+	m_IsCollected = isCollected;
 }
 
 bool Collectible::GetIsCollected() const

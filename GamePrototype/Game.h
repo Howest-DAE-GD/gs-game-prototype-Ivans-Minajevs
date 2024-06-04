@@ -2,6 +2,7 @@
 #include "BaseGame.h"
 #include <vector>
 #include "Thief.h"
+class EnemiesManager;
 class TextManager;
 class Camera;
 class CollectiblesManager;
@@ -44,6 +45,7 @@ private:
 	Thief* m_ThiefPtr;
 	Camera* m_Camera;
 	CollectiblesManager* m_CollectibleManagerPtr;
+	EnemiesManager* m_EnemiesManagerPtr;
 	std::vector<std::vector<Point2f>> m_MazeMapVertices;
 	std::string m_Alphabet{"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:"};
 	TextManager* m_TextManagerPtr;

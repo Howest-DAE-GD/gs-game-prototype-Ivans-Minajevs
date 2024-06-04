@@ -8,6 +8,8 @@
 #include "CollectiblesManager.h"
 #include <algorithm>
 #include "TextManager.h"
+#include "EnemiesManager.h"
+#include "Enemy.h"
 using namespace std;
 Game::Game( const Window& window ) 
 	:BaseGame{ window }, m_CollectibleManagerPtr(nullptr)
@@ -24,85 +26,35 @@ void Game::Initialize( )
 {
 	m_CollectibleManagerPtr = new CollectiblesManager();
 
+	m_EnemiesManagerPtr = new EnemiesManager();
 	m_Camera = new Camera(GetViewPort().width, GetViewPort().height);
 
-	m_ThiefPtr = new Thief(Point2f(450.f, 20.f));
+	m_ThiefPtr = new Thief(Point2f(450.f, 40.f));
 	SVGParser::GetVerticesFromSvgFile("maze_10x10.svg", m_MazeMapVertices);
 	for (std::vector<Point2f>& segment : m_MazeMapVertices)
 	{
 		for (Point2f& point : segment)
 		{
 			point.x = int(point.x) * m_SCALE;
+			
 			point.y = int(point.y) * m_SCALE;
 			std::cout << point.x << " " << point.y;
 		}
 	}
+	
 	m_CollectibleManagerPtr->Add(new Collectible(Point2f(700.f, 40.f)));
 	m_CollectibleManagerPtr->Add(new Collectible(Point2f(700.f, 750.f)));
 	m_CollectibleManagerPtr->Add(new Collectible(Point2f(250.f, 350.f)));
 	m_CollectibleManagerPtr->Add(new Collectible(Point2f(400.f, 355.f)));
 	m_CollectibleManagerPtr->Add(new Collectible(Point2f(40.f, 80.f)));
 
+	m_EnemiesManagerPtr->Add(new Enemy(Point2f(40.f, 80.f)));
+	m_EnemiesManagerPtr->Add(new Enemy(Point2f(250.f, 350.f)));
+	m_EnemiesManagerPtr->Add(new Enemy(Point2f(50.f, 750.f)));
+	m_EnemiesManagerPtr->Add(new Enemy(Point2f(700.f, 40.f)));
+	
 	m_TextManagerPtr = new TextManager(m_Alphabet, "game_font.ttf");
 }
-
-/*void Game::GenerateMaze()
-{
-	MazePoint startCoord{ 0, 0 }; // Starting point at top-left corner
-	MazePoint endCoord{ m_ROWS - 1, m_COLS - 1 }; // Ending point at bottom-right corner
-
-	// Mark the starting and ending points as visited
-	m_Maze[startCoord.x][startCoord.y] = true;
-	m_Maze[endCoord.x][endCoord.y] = true;
-
-	GenerateMazeRecursive(int(startCoord.x), int(startCoord.y));
-	//while (true) {
-	//	bool done = true;
-	//	for (int i = 1; i < m_ROWS - 1; i += 2) {
-	//		for (int j = 1; j < m_COLS - 1; j += 2) {
-	//			if (!m_Maze[i][j]) {
-	//				done = false;
-	//				int dir = rand() % 4;
-	//				int newX = i + (dir == 0) - (dir == 1);
-	//				int newY = j + (dir == 2) - (dir == 3);
-	//				if (newX >= 0 && newX < m_ROWS && newY >= 0 && newY < m_COLS && !m_Maze[newX][newY]) {
-	//					m_Maze[newX][newY] = true;
-	//					m_Maze[i + (newX - i) / 2][j + (newY - j) / 2] = true;
-	//				}
-	//			}
-	//		}
-	//	}
-	//	if (done) break;
-	//}
-	//srand(time(NULL));
-	//int startX = rand() % m_ROWS;
-	//int startY = rand() % m_COLS;
-	//m_Maze[startX][startY] = true;
-	//
-	//while (true) {
-	//	bool done = true;
-	//	for (int i = 1; i < m_ROWS - 1; i += 2) {
-	//		for (int j = 1; j < m_COLS - 1; j += 2) {
-	//			if (!m_Maze[i][j]) {
-	//				done = false;
-	//				int dir = rand() % 4;
-	//				int newX = i + (dir == 0) - (dir == 1);
-	//				int newY = j + (dir == 2) - (dir == 3);
-	//				if (newX >= 0 && newX < m_ROWS && newY >= 0 && newY < m_COLS && !m_Maze[newX][newY]) {
-	//					m_Maze[newX][newY] = true;
-	//					m_Maze[static_cast<std::vector<std::vector<bool, std::allocator<bool>>, std::allocator<std::vector<bool, std::allocator<bool>>>>::size_type>(i) + (newX - i) / 2]
-	//						[static_cast<std::vector<bool, std::allocator<bool>>::size_type>(j) + (newY - j) / 2] = true;
-	//				}
-	//			}
-	//		}
-	//	}
-	//	if (done)
-	//	{
-	//		break;
-	//	}
-	//}
-}*/
-
 /*void Game::GenerateMazeRecursive(int x, int y)
 {
 	vector<MazePoint> directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
@@ -134,80 +86,56 @@ void Game::Cleanup( )
 	m_CollectibleManagerPtr = nullptr;
 
 	delete m_TextManagerPtr;
+	delete m_EnemiesManagerPtr;
 }
 
 void Game::Update( float elapsedSec )
 {
 	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	m_ThiefPtr->Update(elapsedSec, pStates, m_MazeMapVertices);
-
-	std::vector<Collectible*>* smth = m_CollectibleManagerPtr->GetArray();
-	for (Collectible* collectiblePtr : *smth)
-	{
-		if (collectiblePtr != nullptr)
-		{
-			if (utils::IsOverlapping(collectiblePtr->GetRect(), m_ThiefPtr->GetCircle()))
-			{
-			
-				collectiblePtr->SetIsCollected();
-			}
-		}
-	}
-
-	m_CollectibleManagerPtr->Update();
+	m_EnemiesManagerPtr->Update(m_MazeMapVertices, elapsedSec, m_ThiefPtr, m_CollectibleManagerPtr);
+	m_CollectibleManagerPtr->Update(m_ThiefPtr);
 }
 
 void Game::Draw( ) const
 {
-	
+
 	m_Camera->Aim(GetViewPort().width, m_HEIGHT * m_SCALE + 100.f, m_ThiefPtr->GetPosition());
 
 	ClearBackground( );
 
-	utils::SetColor(Color4f(0.f, 0.f, 0.f, 1.f));
-	//glLineWidth(3.0);
-	//glBegin(GL_LINES);
-	//for (int i = 0; i < m_ROWS ; ++i) {
-	//	for (int j = 0; j < m_COLS ; ++j) {
-	//		if (!m_Maze[i][j]) {
-	//			if (j>0 && m_Maze[i][j - 1]) { // Left wall
-	//				glVertex2i(j * m_CELL_SIZE, i * m_CELL_SIZE);
-	//				glVertex2i(j * m_CELL_SIZE, (i + 1) * m_CELL_SIZE);
-	//			}
-	//			if (j < m_COLS - 1 && m_Maze[i][j + 1]) { // Right wall
-	//				glVertex2i((j + 1) * m_CELL_SIZE, i * m_CELL_SIZE);
-	//				glVertex2i((j + 1) * m_CELL_SIZE, (i + 1) * m_CELL_SIZE);
-	//			}
-	//			if ( i > 0 && m_Maze[i - 1][j]) { // Top wall
-	//				glVertex2i(j * m_CELL_SIZE, (i ) * m_CELL_SIZE);
-	//				glVertex2i((j + 1) * m_CELL_SIZE, (i) * m_CELL_SIZE);
-	//			}
-	//			if ( i < m_ROWS - 1  && m_Maze[i + 1][j]) { // Bottom wall
-	//				glVertex2i(j * m_CELL_SIZE, (i + 1) * m_CELL_SIZE);
-	//				glVertex2i((j + 1) * m_CELL_SIZE, (i + 1) * m_CELL_SIZE);
-	//			}
-	//		}
-	//	}
-	//}
-	//glEnd();
-	//glFlush();
-
 	glPushMatrix();
 	{
-		//glTranslatef(250.f, 100.f, 0.f);
-		for (std::vector<Point2f> segment : m_MazeMapVertices)
+		for (int inx { 0 }; inx < int(m_MazeMapVertices.size()); ++inx)
 		{
-			utils::DrawPolygon(segment, true, 2.f);
+			if (inx >= 4)
+			{
+				if (CollectiblesManager::GetCollectedCollectiblesCount() < 5)
+				{
+					utils::SetColor(Color4f(1.f, 0.f, 0.f, 1.f));
+				}
+				else
+				{
+					utils::SetColor(Color4f(0.f, 1.f, 0.f, 1.f));
+				}
+				
+				utils::FillPolygon(m_MazeMapVertices[inx]);
+			}
+			else
+			{
+				utils::SetColor(Color4f(0.f, 0.f, 0.f, 1.f));
+				utils::DrawPolygon(m_MazeMapVertices[inx], true, 2.f);
+			}
 		}
 	}
 	glPopMatrix();
 	m_CollectibleManagerPtr->Draw();
 	m_ThiefPtr->Draw();
 
-	
+	m_EnemiesManagerPtr->Draw();
 	
 	m_Camera->Reset();
-
+	
 	utils::SetColor(Color4f(1.f, 1.f, 1.f, 1.f));
 	utils::FillRect(GetViewPort().width - 450.f, GetViewPort().height - 100.f, 450.f, 100.f);
 	m_TextManagerPtr->Draw(Point2f(GetViewPort().width - 400.f, GetViewPort().height - 60.f), "COLLECTED:" + std::to_string(CollectiblesManager::GetCollectedCollectiblesCount()) +
