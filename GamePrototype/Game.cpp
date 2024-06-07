@@ -64,65 +64,90 @@ void Game::Cleanup( )
 	m_Camera = nullptr;
 
 	m_CollectibleManagerPtr->DeleteCollectibles();
+	m_EnemiesManagerPtr->DeleteEnemies();
 	
 	delete m_CollectibleManagerPtr;
 	m_CollectibleManagerPtr = nullptr;
 
 	delete m_TextManagerPtr;
 	delete m_EnemiesManagerPtr;
+
 }
 
 void Game::Update( float elapsedSec )
 {
-	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	m_ThiefPtr->Update(elapsedSec, pStates, m_MazeMapVertices);
-	m_EnemiesManagerPtr->Update(m_MazeMapVertices, elapsedSec, m_ThiefPtr, m_CollectibleManagerPtr);
-	m_CollectibleManagerPtr->Update(m_ThiefPtr);
+	if (m_State == GameState::on)
+	{
+		m_CompleteTime += elapsedSec;
+		const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
+		m_ThiefPtr->Update(elapsedSec, pStates, m_MazeMapVertices);
+		m_EnemiesManagerPtr->Update(m_MazeMapVertices, elapsedSec, m_ThiefPtr, m_CollectibleManagerPtr);
+		m_CollectibleManagerPtr->Update(m_ThiefPtr);
+
+		if (m_State != GameState::off)
+		{
+			if (!utils::IsPointInRect(m_ThiefPtr->GetPosition(), Rectf(0.f, 0.f, m_WIDTH * m_SCALE, m_HEIGHT*m_SCALE)))
+			{
+				m_State = GameState::off;
+				m_EnemiesManagerPtr->DeleteEnemies();
+			}
+		}
+	}	
 }
 
 void Game::Draw( ) const
 {
-
-	m_Camera->Aim(GetViewPort().width, m_HEIGHT * m_SCALE + 100.f, m_ThiefPtr->GetPosition());
-
-	ClearBackground( );
-
-	glPushMatrix();
+	if (m_State == GameState::on)
 	{
-		for (int inx { 0 }; inx < int(m_MazeMapVertices.size()); ++inx)
+		m_Camera->Aim(GetViewPort().width, m_HEIGHT * m_SCALE + 100.f, m_ThiefPtr->GetPosition());
+
+		ClearBackground( );
+
+		glPushMatrix();
 		{
-			if (inx >= 4)
+			for (int inx { 0 }; inx < int(m_MazeMapVertices.size()); ++inx)
 			{
-				if (CollectiblesManager::GetCollectedCollectiblesCount() < 5)
+				if (inx >= 4)
 				{
-					utils::SetColor(Color4f(1.f, 0.f, 0.f, 1.f));
+					if (CollectiblesManager::GetCollectedCollectiblesCount() < 5)
+					{
+						utils::SetColor(Color4f(1.f, 0.f, 0.f, 1.f));
+					}
+					else
+					{
+						utils::SetColor(Color4f(0.f, 1.f, 0.f, 1.f));
+					}
+				
+					utils::FillPolygon(m_MazeMapVertices[inx]);
 				}
 				else
 				{
-					utils::SetColor(Color4f(0.f, 1.f, 0.f, 1.f));
+					utils::SetColor(Color4f(0.f, 0.f, 0.f, 1.f));
+					utils::DrawPolygon(m_MazeMapVertices[inx], true, 2.f);
 				}
-				
-				utils::FillPolygon(m_MazeMapVertices[inx]);
-			}
-			else
-			{
-				utils::SetColor(Color4f(0.f, 0.f, 0.f, 1.f));
-				utils::DrawPolygon(m_MazeMapVertices[inx], true, 2.f);
 			}
 		}
-	}
-	glPopMatrix();
-	m_CollectibleManagerPtr->Draw();
-	m_ThiefPtr->Draw();
+		glPopMatrix();
+		m_CollectibleManagerPtr->Draw();
+		m_ThiefPtr->Draw();
 
-	m_EnemiesManagerPtr->Draw();
+		m_EnemiesManagerPtr->Draw();
 	
-	m_Camera->Reset();
+		m_Camera->Reset();
 	
-	utils::SetColor(Color4f(0.85f, 0.85f, 0.85f, 1.0f));
-	utils::FillRect(GetViewPort().width - 335.f, GetViewPort().height - 80.f, 335.f, 100.f);
-	m_TextManagerPtr->Draw(Point2f(GetViewPort().width - 300.f, GetViewPort().height - 50.f), "COLLECTED:" + std::to_string(CollectiblesManager::GetCollectedCollectiblesCount()) +
-		"-5");
+		utils::SetColor(Color4f(0.85f, 0.85f, 0.85f, 1.0f));
+		utils::FillRect(GetViewPort().width - 335.f, GetViewPort().height - 80.f, 335.f, 100.f);
+		m_TextManagerPtr->Draw(Point2f(GetViewPort().width - 300.f, GetViewPort().height - 50.f), "COLLECTED:" + std::to_string(CollectiblesManager::GetCollectedCollectiblesCount()) +
+			"-5");
+	} else if (m_State == GameState::off)
+	{
+		ClearBackground( );
+		m_TextManagerPtr->Draw(Point2f(GetViewPort().width / 2.f - 225.f, GetViewPort().height / 2.f + 50.f), "WINNER WINNER CHICKEN DINNER");
+		m_TextManagerPtr->Draw(Point2f(GetViewPort().width / 2.f - 225.f, GetViewPort().height / 2.f), "TIME: " + std::to_string(int(m_CompleteTime)) + "S");
+		m_TextManagerPtr->Draw(Point2f(GetViewPort().width / 2.f - 225.f, GetViewPort().height / 2.f - 50.f), "R TO RESTART");
+	}
+	
+	
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -133,19 +158,24 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
-	//switch ( e.keysym.sym )
-	//{
-	//case SDLK_LEFT:
-	//	//std::cout << "Left arrow key released\n";
-	//	break;
-	//case SDLK_RIGHT:
-	//	//std::cout << "`Right arrow key released\n";
-	//	break;
-	//case SDLK_1:
-	//case SDLK_KP_1:
-	//	//std::cout << "Key 1 released\n";
-	//	break;
-	//}
+	switch ( e.keysym.sym )
+	{
+	case SDLK_r:
+		if (m_State == GameState::off)
+		{
+			m_State = GameState::on;
+			m_ThiefPtr->ResetPosition();
+			m_CompleteTime = 0;
+			m_CollectibleManagerPtr->ResetCollectibles();
+
+			m_EnemiesManagerPtr->Add(new Enemy(Point2f(40.f, 80.f)));
+			m_EnemiesManagerPtr->Add(new Enemy(Point2f(250.f, 350.f)));
+			m_EnemiesManagerPtr->Add(new Enemy(Point2f(50.f, 750.f)));
+			m_EnemiesManagerPtr->Add(new Enemy(Point2f(700.f, 40.f)));
+			
+			break;
+		}
+	}
 }
 
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )

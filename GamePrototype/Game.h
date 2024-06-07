@@ -9,6 +9,10 @@ class CollectiblesManager;
 class Game : public BaseGame
 {
 public:
+	enum class GameState
+	{
+		on, off
+	};
 	explicit Game( const Window& window );
 	Game(const Game& other) = delete;
 	Game& operator=(const Game& other) = delete;
@@ -49,6 +53,9 @@ private:
 	std::vector<std::vector<Point2f>> m_MazeMapVertices;
 	std::string m_Alphabet{"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-:"};
 	TextManager* m_TextManagerPtr;
+
+	GameState m_State { GameState::on };
+	float m_CompleteTime{ 0 };
 	// FUNCTIONS
 	void Initialize();
 	//void GenerateMaze();
